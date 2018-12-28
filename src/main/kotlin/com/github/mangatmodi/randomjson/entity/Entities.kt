@@ -4,3 +4,4 @@ sealed class JsonDataType
 object StringType : JsonDataType()
 object DoubleType : JsonDataType()
 object IntType : JsonDataType()
+object BooleanType : JsonDataType()

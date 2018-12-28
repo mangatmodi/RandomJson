@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.github.mangatmodi.randomjson.config.RandomJsonConfig
+import com.github.mangatmodi.randomjson.entity.BooleanType
 import com.github.mangatmodi.randomjson.entity.DoubleType
 import com.github.mangatmodi.randomjson.entity.IntType
 import com.github.mangatmodi.randomjson.entity.StringType
@@ -18,6 +19,7 @@ class RandomJsonCreater(
     private val randomDouble: RandomDouble,
     private val randomInt: RandomInt,
     private val randomString: RandomString,
+    private val randomBoolean: RandomBoolean,
     private val randomKey: RandomString,
     private val typeSelector: DatatypeSelector
 ) {
@@ -42,6 +44,7 @@ class RandomJsonCreater(
                         StringType -> put(key, randomString.next())
                         DoubleType -> put(key, randomDouble.next())
                         IntType -> put(key, randomInt.next())
+                        BooleanType -> put(key, randomBoolean.next())
                     }
                 }
         }.let { objectMapper.writeValueAsString(it) }
