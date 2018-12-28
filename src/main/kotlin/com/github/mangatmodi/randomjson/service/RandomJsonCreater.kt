@@ -18,7 +18,7 @@ class RandomJsonCreater(
     private val randomDouble: RandomDouble,
     private val randomInt: RandomInt,
     private val randomString: RandomString,
-    private val randomKey: RandomKey,
+    private val randomKey: RandomString,
     private val typeSelector: DatatypeSelector
 ) {
     private val objectMapper: ObjectMapper = ObjectMapper()

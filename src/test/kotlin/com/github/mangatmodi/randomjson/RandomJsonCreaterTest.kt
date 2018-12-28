@@ -5,7 +5,6 @@ import com.github.mangatmodi.randomjson.config.RandomJsonConfig
 import com.github.mangatmodi.randomjson.service.RandomDouble
 import com.github.mangatmodi.randomjson.service.RandomInt
 import com.github.mangatmodi.randomjson.service.RandomJsonCreater
-import com.github.mangatmodi.randomjson.service.RandomKey
 import com.github.mangatmodi.randomjson.service.RandomString
 import com.github.mangatmodi.randomjson.service.impl.DatatypeSelectorNaiveImpl
 import io.kotlintest.matchers.shouldBe
@@ -30,7 +29,7 @@ data class Fixture(
         object : RandomString {
             override fun next() = string
         },
-        object : RandomKey {
+        object : RandomString {
             override fun next() = UUID.randomUUID().toString()
         },
         DatatypeSelectorNaiveImpl()
