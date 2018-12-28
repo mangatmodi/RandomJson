@@ -4,7 +4,6 @@ import com.github.mangatmodi.randomjson.config.RandomJsonConfig
 import com.github.mangatmodi.randomjson.service.RandomJsonCreater
 import com.github.mangatmodi.randomjson.service.impl.*
 
-//TODO: Release in Maven
 fun main(args: Array<String>) {
     val jsonCreater = RandomJsonCreater(
         RandomJsonConfig(5),
