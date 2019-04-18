@@ -13,14 +13,9 @@ import com.github.mangatmodi.randomjson.entity.DoubleType
 import com.github.mangatmodi.randomjson.entity.IntType
 import com.github.mangatmodi.randomjson.entity.StringType
 
-// TODO: Use reader monad, Boolean
 class RandomJsonCreater(
+    private val numberOfFields: Int,
     private val config: RandomJsonConfig,
-    private val randomDouble: RandomDouble,
-    private val randomInt: RandomInt,
-    private val randomString: RandomString,
-    private val randomBoolean: RandomBoolean,
-    private val randomKey: RandomString,
     private val typeSelector: DatatypeSelector
 ) {
     private val objectMapper: ObjectMapper = ObjectMapper()
@@ -36,15 +31,15 @@ class RandomJsonCreater(
 
     fun create(): String =
         objectMapper.createObjectNode().apply {
-            (1..config.numberOfFields)
+            (1..numberOfFields)
                 .forEach {
                     val type = typeSelector.select()
-                    val key = randomKey.next()
+                    val key = config.randomKey.next()
                     when (type) {
-                        StringType -> put(key, randomString.next())
-                        DoubleType -> put(key, randomDouble.next())
-                        IntType -> put(key, randomInt.next())
-                        BooleanType -> put(key, randomBoolean.next())
+                        StringType -> put(key, config.randomString.next())
+                        DoubleType -> put(key, config.randomDouble.next())
+                        IntType -> put(key, config.randomInt.next())
+                        BooleanType -> put(key, config.randomBoolean.next())
                     }
                 }
         }.let { objectMapper.writeValueAsString(it) }

@@ -7,19 +7,32 @@ import com.github.mangatmodi.randomjson.service.impl.RandomBooleanUniformImpl
 import com.github.mangatmodi.randomjson.service.impl.RandomDoubleThreadLocalImpl
 import com.github.mangatmodi.randomjson.service.impl.RandomIntThreadLocalImpl
 import com.github.mangatmodi.randomjson.service.impl.RandomStringCharArrayImpl
+import picocli.CommandLine
 
-fun main(args: Array<String>) {
-    val jsonCreater = RandomJsonCreater(
-        RandomJsonConfig(5),
-        RandomDoubleThreadLocalImpl(),
-        RandomIntThreadLocalImpl(),
-        RandomStringCharArrayImpl("eusbwopw".toCharArray(), 5),
-        RandomBooleanUniformImpl(),
-        RandomStringCharArrayImpl("abcdefg".toCharArray(), 5),
-        DatatypeSelectorNaiveImpl()
-    )
+@CommandLine.Command
+class Runner {
+    @CommandLine.Option(names = ["f", "--file"], description = ["File with json structure"])
+    var fileName: String? = null
 
-    for (i in 0..10) {
-        println(jsonCreater.create())
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+
+            val jsonCreater = RandomJsonCreater(
+                5,
+                RandomJsonConfig(
+                    RandomDoubleThreadLocalImpl(),
+                    RandomIntThreadLocalImpl(),
+                    RandomStringCharArrayImpl("eusbwopw".toCharArray(), 5),
+                    RandomBooleanUniformImpl(),
+                    RandomStringCharArrayImpl("abcdefg".toCharArray(), 5)
+                ),
+                DatatypeSelectorNaiveImpl()
+            )
+
+            for (i in 0..10) {
+                println(jsonCreater.create())
+            }
+        }
     }
 }

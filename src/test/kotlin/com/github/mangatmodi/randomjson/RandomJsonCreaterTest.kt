@@ -20,22 +20,24 @@ data class Fixture(
     val size: Int
 ) {
     fun creater() = RandomJsonCreater(
-        RandomJsonConfig(size),
-        object : RandomDouble {
-            override fun next() = double
-        },
-        object : RandomInt {
-            override fun next() = int
-        },
-        object : RandomString {
-            override fun next() = string
-        },
-        object : RandomBoolean {
-            override fun next() = true
-        },
-        object : RandomString {
-            override fun next() = UUID.randomUUID().toString()
-        },
+        10,
+        RandomJsonConfig(
+            object : RandomDouble {
+                override fun next() = double
+            },
+            object : RandomInt {
+                override fun next() = int
+            },
+            object : RandomString {
+                override fun next() = string
+            },
+            object : RandomBoolean {
+                override fun next() = true
+            },
+            object : RandomString {
+                override fun next() = UUID.randomUUID().toString()
+            }
+        ),
         DatatypeSelectorNaiveImpl()
     )
 }
