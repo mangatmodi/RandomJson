@@ -9,8 +9,7 @@ import com.github.mangatmodi.randomjson.service.RandomTypeSelector
 import java.util.concurrent.ThreadLocalRandom
 
 class RandomTypeSelectorNaiveImpl : RandomTypeSelector {
-    // next any of the JsonDataType by equal chance
-    override fun select(): JsonDataType {
+        override fun select(): JsonDataType {
         val rand = ThreadLocalRandom
             .current()
             .nextInt(4)
