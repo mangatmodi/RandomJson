@@ -10,7 +10,6 @@ import java.util.concurrent.ThreadLocalRandom
 
 class DatatypeSelectorNaiveImpl : DatatypeSelector {
     // select any of the JsonDataType by equal chance
-    // TODO: remove magic number
     override fun select(): JsonDataType {
         val rand = ThreadLocalRandom
             .current()
