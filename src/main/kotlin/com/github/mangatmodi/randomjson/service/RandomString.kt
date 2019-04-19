@@ -1,5 +1,5 @@
 package com.github.mangatmodi.randomjson.service
 
-interface RandomString {
-    fun next(): String
+interface RandomString:RandomValue<String> {
+    override fun next(): String
 }

@@ -1,12 +1,11 @@
 package com.github.mangatmodi.randomjson
 
 import com.github.mangatmodi.randomjson.config.RandomJsonConfig
-import com.github.mangatmodi.randomjson.service.RandomJsonCreater
-import com.github.mangatmodi.randomjson.service.impl.DatatypeSelectorNaiveImpl
 import com.github.mangatmodi.randomjson.service.impl.RandomBooleanUniformImpl
 import com.github.mangatmodi.randomjson.service.impl.RandomDoubleThreadLocalImpl
 import com.github.mangatmodi.randomjson.service.impl.RandomIntThreadLocalImpl
 import com.github.mangatmodi.randomjson.service.impl.RandomStringCharArrayImpl
+import com.github.mangatmodi.randomjson.service.impl.SampleJsonCreater
 import picocli.CommandLine
 
 @CommandLine.Command
@@ -18,16 +17,15 @@ class Runner {
         @JvmStatic
         fun main(args: Array<String>) {
 
-            val jsonCreater = RandomJsonCreater(
-                5,
+            val jsonCreater = SampleJsonCreater(
+                """{"key1":{"key2":3}}""",
                 RandomJsonConfig(
                     RandomDoubleThreadLocalImpl(),
                     RandomIntThreadLocalImpl(),
                     RandomStringCharArrayImpl("eusbwopw".toCharArray(), 5),
                     RandomBooleanUniformImpl(),
                     RandomStringCharArrayImpl("abcdefg".toCharArray(), 5)
-                ),
-                DatatypeSelectorNaiveImpl()
+                )
             )
 
             for (i in 0..10) {
