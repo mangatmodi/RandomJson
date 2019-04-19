@@ -1,5 +1,5 @@
 package com.github.mangatmodi.randomjson.service
 
-interface RandomDouble {
-    fun next(): Double
+interface RandomDouble:RandomValue<Double> {
+    override fun next(): Double
 }
