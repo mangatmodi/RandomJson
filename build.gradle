@@ -17,7 +17,11 @@ plugins {
 repositories {
     jcenter()
 }
-
+tasks.withType(org.jetbraisns.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.10"
+    }
+}
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib"
     compile "org.jetbrains.kotlin:kotlin-reflect"

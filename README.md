@@ -4,7 +4,7 @@ Provides library to create a random json
 Example
 
 ```
-    val jsonCreater = RandomJsonCreater(
+    val jsonCreator = RandomJsonCreator(
         RandomJsonConfig(5),
         RandomDoubleThreadLocalImpl(),
         RandomIntThreadLocalImpl(),
@@ -14,6 +14,6 @@ Example
         DatatypeSelectorNaiveImpl()
     )
 
-        println(jsonCreater.create())
+        println(jsonCreator.create())
 
 ```

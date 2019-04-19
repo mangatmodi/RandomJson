@@ -1,8 +1,7 @@
 package com.github.mangatmodi.randomjson.entity
 
-sealed class JsonDataType{
-    fun next(){
-
+sealed class JsonDataType {
+    fun next() {
     }
 }
 object StringType : JsonDataType()

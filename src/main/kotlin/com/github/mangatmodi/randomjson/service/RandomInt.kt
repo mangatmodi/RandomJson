@@ -1,5 +1,16 @@
 package com.github.mangatmodi.randomjson.service
 
-interface RandomInt:RandomValue<Int> {
+import java.util.concurrent.ThreadLocalRandom
+
+interface RandomInt : RandomValue<Int> {
     override fun next(): Int
+
+    companion object {
+        @JvmStatic
+        fun naive(): RandomInt = RandomIntThreadLocalImpl()
+
+        private class RandomIntThreadLocalImpl : RandomInt {
+            override fun next() = ThreadLocalRandom.current().nextInt(1, Int.MAX_VALUE)
+        }
+    }
 }

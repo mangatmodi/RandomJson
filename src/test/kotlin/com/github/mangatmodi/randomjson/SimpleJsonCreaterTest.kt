@@ -1,17 +1,17 @@
 package com.github.mangatmodi.randomjson
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.github.mangatmodi.randomjson.service.RandomJsonCreator
 import com.github.mangatmodi.randomjson.service.impl.RandomTypeSelectorNaiveImpl
-import com.github.mangatmodi.randomjson.service.impl.SimpleJsonCreater
 import io.kotlintest.matchers.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
-class SimpleJsonCreaterTest : ShouldSpec() {
+class SimpleJsonCreatorTest : ShouldSpec() {
     init {
         "Random Json Create" {
             should("Create a valid json with given random functions and size") {
                 with(Fixture(1.0, "value", 2, "key", 10)) {
-                    val jsonString = SimpleJsonCreater(
+                    val jsonString = RandomJsonCreator.fromNumberOfKeys(
                         10,
                         this.config(),
                         RandomTypeSelectorNaiveImpl()).create()
