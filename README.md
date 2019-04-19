@@ -4,6 +4,18 @@ Provides library to create a random json
 Example
 
 ```
-        println(jsonCreator.create())
+            val jsonCreater = RandomJsonCreator.fromSampleString(
+                """{"key1":{"key2":3}}""",
+                RandomJsonConfig(
+                    RandomDouble.naive(),
+                    RandomInt.naive(),
+                    RandomString.charArray("eusbwopw".toCharArray(), 5),
+                    RandomBoolean.naive(),
+                    RandomString.charArray("abcdefg".toCharArray(), 5)
+                )
+            )
+
+                println(jsonCreater.create())
+            
 
 ```
