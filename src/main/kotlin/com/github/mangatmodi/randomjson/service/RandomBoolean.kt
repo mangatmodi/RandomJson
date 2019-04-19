@@ -1,5 +1,5 @@
 package com.github.mangatmodi.randomjson.service
 
-interface RandomBoolean {
-    fun next(): Boolean
+interface RandomBoolean:RandomValue<Boolean> {
+    override fun next(): Boolean
 }

@@ -22,7 +22,10 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib"
     compile "org.jetbrains.kotlin:kotlin-reflect"
     compile "org.jetbrains.kotlin:kotlin-stdlib"
-
+    compile "ch.qos.logback:logback-classic:1.2.2"
+    compile "org.slf4j:slf4j-api:1.7.25"
+    compile "org.slf4j:jul-to-slf4j:1.7.25"
+    compile "org.slf4j:jcl-over-slf4j:1.7.25"
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
     compile 'com.fasterxml.jackson.core:jackson-core:2.9.8'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.8'
