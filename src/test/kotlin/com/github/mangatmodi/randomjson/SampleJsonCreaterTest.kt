@@ -1,16 +1,16 @@
 package com.github.mangatmodi.randomjson
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.github.mangatmodi.randomjson.service.impl.SampleJsonCreater
+import com.github.mangatmodi.randomjson.service.RandomJsonCreator
 import io.kotlintest.matchers.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
-class SampleJsonCreaterTest : ShouldSpec() {
+class SampleJsonCreatorTest : ShouldSpec() {
     init {
         "Random Json Create" {
             should("Create a valid json with given random functions and size") {
                 with(Fixture(1.0, "value", 2, "key", 10)) {
-                    val jsonString = SampleJsonCreater(
+                    val jsonString = RandomJsonCreator.fromSampleString(
                         """
 {
 	"id": "0001",

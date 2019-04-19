@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.github.mangatmodi.randomjson.config.RandomJsonConfig
-import com.github.mangatmodi.randomjson.service.RandomJsonCreater
+import com.github.mangatmodi.randomjson.service.RandomJsonCreator
 import com.github.mangatmodi.randomjson.service.RandomTypeSelector
 import org.slf4j.LoggerFactory
 
@@ -21,10 +21,10 @@ import org.slf4j.LoggerFactory
  *  @property sampleJson is json string, whose structure needs to be used
  *  @property typeSelector [RandomTypeSelector] specify which field to choose next
  */
-class SampleJsonCreater(
+internal class SampleJsonCreator(
     private val sampleJson: String,
     private val config: RandomJsonConfig
-) : RandomJsonCreater {
+) : RandomJsonCreator {
     val logger = LoggerFactory.getLogger(this::class.java)
     private val objectMapper: ObjectMapper = ObjectMapper()
         .registerModule(JavaTimeModule())
@@ -55,7 +55,8 @@ class SampleJsonCreater(
     private fun ObjectNode.put(value: JsonNode) {
         val key = config.randomKey.next()
         when {
-            value.isNull -> {}
+            value.isNull -> {
+            }
             value.isArray -> value.forEach { put(it) }
             value.isObject -> {
                 val json = this.putObject(key)
