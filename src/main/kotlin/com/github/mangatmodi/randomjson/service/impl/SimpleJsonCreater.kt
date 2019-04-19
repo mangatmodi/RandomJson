@@ -23,7 +23,7 @@ import com.github.mangatmodi.randomjson.service.RandomTypeSelector
  *  @property numberOfFields is number of fields in the generated json
  *  @property typeSelector specify which field to choose next
  */
-class SimpleJsonCreator(
+internal class SimpleJsonCreator(
     private val numberOfFields: Int,
     private val config: RandomJsonConfig,
     private val typeSelector: RandomTypeSelector

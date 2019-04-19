@@ -13,11 +13,10 @@ import picocli.CommandLine
 class Runner {
     @CommandLine.Option(names = ["f", "--file"], description = ["File with json structure"])
     var fileName: String? = null
-
+    
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-
             val jsonCreater = RandomJsonCreator.fromNumberOfKeys(
                 5,
                 RandomJsonConfig(

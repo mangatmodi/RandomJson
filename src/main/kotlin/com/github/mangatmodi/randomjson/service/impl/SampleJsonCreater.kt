@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory
  *  @property sampleJson is json string, whose structure needs to be used
  *  @property typeSelector [RandomTypeSelector] specify which field to choose next
  */
-class SampleJsonCreator(
+internal class SampleJsonCreator(
     private val sampleJson: String,
     private val config: RandomJsonConfig
 ) : RandomJsonCreator {
@@ -55,7 +55,8 @@ class SampleJsonCreator(
     private fun ObjectNode.put(value: JsonNode) {
         val key = config.randomKey.next()
         when {
-            value.isNull -> {}
+            value.isNull -> {
+            }
             value.isArray -> value.forEach { put(it) }
             value.isObject -> {
                 val json = this.putObject(key)
