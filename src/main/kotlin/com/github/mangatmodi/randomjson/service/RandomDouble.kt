@@ -2,12 +2,20 @@ package com.github.mangatmodi.randomjson.service
 
 import java.util.concurrent.ThreadLocalRandom
 
+/**
+ * Generator for random double values
+ * */
 interface RandomDouble : RandomValue<Double> {
+    /** return a random double value
+     * */
     override fun next(): Double
 
     companion object {
+        /**
+         * Uses [ThreadLocalRandom] to generate double value between 1 and 1_000_000
+         * */
         @JvmStatic
-        fun naive(): RandomDouble = RandomDoubleThreadLocalImpl()
+        fun default(): RandomDouble = RandomDoubleThreadLocalImpl()
     }
 
     private class RandomDoubleThreadLocalImpl : RandomDouble {

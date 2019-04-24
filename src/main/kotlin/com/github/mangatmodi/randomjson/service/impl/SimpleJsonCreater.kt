@@ -15,14 +15,6 @@ import com.github.mangatmodi.randomjson.entity.StringType
 import com.github.mangatmodi.randomjson.service.RandomJsonCreator
 import com.github.mangatmodi.randomjson.service.RandomTypeSelector
 
-/**
- * Creates JSON string by generating fields using generators in [config].
- *
- * *Note: Doesn't support JSON arrays or nested JSON objects*
-
- *  @property numberOfFields is number of fields in the generated json
- *  @property typeSelector specify which field to choose next
- */
 internal class SimpleJsonCreator(
     private val numberOfFields: Int,
     private val config: RandomJsonConfig,

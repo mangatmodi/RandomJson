@@ -11,16 +11,8 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.github.mangatmodi.randomjson.config.RandomJsonConfig
 import com.github.mangatmodi.randomjson.service.RandomJsonCreator
-import com.github.mangatmodi.randomjson.service.RandomTypeSelector
 import org.slf4j.LoggerFactory
 
-/**
- * Creates JSON string by generating fields using generators in [config].
- * JSON string is created by taking the [sampleJson] as example
- *
- *  @property sampleJson is json string, whose structure needs to be used
- *  @property typeSelector [RandomTypeSelector] specify which field to choose next
- */
 internal class SampleJsonCreator(
     private val sampleJson: String,
     private val config: RandomJsonConfig
