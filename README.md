@@ -2,15 +2,15 @@ RandomJson [![CodeFactor](https://www.codefactor.io/repository/github/mangatmodi
 
 Provides library to create a random json. Provides two implementation of json creation
 
-**[SampleJsonCreator](#SampleJsonCreator)**: Creates JSON string from a sample string.
+**[SampleJsonCreator](###SampleJsonCreator)**: Creates JSON string from a sample string.
 
-**[SimpleJsonCreator](#SimpleJsonCreator)**: Creates JSON string by taking number of required keys.
+**[SimpleJsonCreator](###SimpleJsonCreator)**: Creates JSON string by taking number of required keys.
 
 Some useful features
-1. The random value generations could be customised by giving your own [implementation](#Overloaded-random-generator).
+1. The random value generations could be customised by giving your own [implementation](####Overloaded-random-generataor).
 2. The default given implementation is _thread-safe_. That means random strings can be [created](#Parallel-creation-of-random-strings) in different threads  
-###Examples
-####SampleJsonCreator
+### Examples
+#### SampleJsonCreator
 ```
             val config =  RandomJsonConfig(
                                              RandomDouble.default(),
@@ -24,7 +24,7 @@ Some useful features
             println(jsonCreater.create())            
     
 ```
-####SimpleJsonCreator 
+#### SimpleJsonCreator 
 ```
             val config =  RandomJsonConfig(
                                              RandomDouble.default(),
@@ -38,7 +38,7 @@ Some useful features
             println(jsonCreater.create())            
     
 ```
-####Overloaded random generator
+#### Overloaded random generator
 
 In the example below `DummyDoubleValue` implements `RandomDouble` to give `2.0`
 as the double value. So all the JSON strings created by `jsonCreator` below will contain `2.0` as double value
@@ -61,7 +61,7 @@ as the double value. So all the JSON strings created by `jsonCreator` below will
 
 ```
 
-####Parallel creation of random strings
+#### Parallel creation of random strings
 In the example below, we used kotlin's [coroutines](https://kotlinlang.org/docs/reference/coroutines/coroutines-guide.html)
  based `async-await` util to create 10 json strings in parallel.
 ```
