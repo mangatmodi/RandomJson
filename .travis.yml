@@ -6,6 +6,6 @@ before_install:
   -in all.gpg.enc -out all.gpg -d
 - chmod +x gradlew
 - chmod +x gradle/wrapper/gradle-wrapper.jar
-script:
-- "./gradlew test build"
+install:
+- "./gradlew test build -x signArchives"
   
