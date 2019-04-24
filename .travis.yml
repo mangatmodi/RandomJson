@@ -7,4 +7,8 @@ before_install:
 script:
 - ./gradlew test build
 deploy:
--  ./gradlew uploadArchives
+  provider: script
+  script: ./gradlew uploadArchives
+  on:
+    condition: $TRAVIS_BRANCH =~ ^master|production$
+
