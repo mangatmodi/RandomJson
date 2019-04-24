@@ -82,7 +82,7 @@ uploadArchives {
             def username  = project.findProperty('ossrhUsername')?:System.getenv('ossrhUsername')
             def password  = project.findProperty('ossrhPassword')?:System.getenv('ossrhPassword')
 
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/  ") {
                 authentication(userName: username, password: password)
             }
 
