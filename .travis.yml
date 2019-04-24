@@ -6,3 +6,5 @@ before_install:
 - chmod +x gradle/wrapper/gradle-wrapper.jar
 script:
 - ./gradlew test build
+deploy:
+-  ./gradlew uploadArchives
