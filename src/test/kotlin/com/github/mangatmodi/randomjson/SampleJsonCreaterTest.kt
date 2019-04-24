@@ -1,7 +1,6 @@
 package com.github.mangatmodi.randomjson
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.github.mangatmodi.randomjson.service.RandomJsonCreator
 import io.kotlintest.matchers.shouldBe
 import io.kotlintest.specs.ShouldSpec
 

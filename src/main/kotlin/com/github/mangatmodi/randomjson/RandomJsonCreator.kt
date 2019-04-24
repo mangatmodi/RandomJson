@@ -1,6 +1,7 @@
-package com.github.mangatmodi.randomjson.service
+package com.github.mangatmodi.randomjson
 
 import com.github.mangatmodi.randomjson.config.RandomJsonConfig
+import com.github.mangatmodi.randomjson.service.RandomTypeSelector
 import com.github.mangatmodi.randomjson.service.impl.SampleJsonCreator
 import com.github.mangatmodi.randomjson.service.impl.SimpleJsonCreator
 
