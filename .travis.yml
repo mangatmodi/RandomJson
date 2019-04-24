@@ -6,9 +6,3 @@ before_install:
 - chmod +x gradle/wrapper/gradle-wrapper.jar
 script:
 - ./gradlew test build
-deploy:
-  provider: script
-  script: ./gradlew uploadArchives
-  on:
-    condition: $TRAVIS_BRANCH =~ ^master|production$
-
