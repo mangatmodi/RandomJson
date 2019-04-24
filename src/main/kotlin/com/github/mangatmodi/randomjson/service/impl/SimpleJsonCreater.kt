@@ -12,7 +12,7 @@ import com.github.mangatmodi.randomjson.entity.BooleanType
 import com.github.mangatmodi.randomjson.entity.DoubleType
 import com.github.mangatmodi.randomjson.entity.IntType
 import com.github.mangatmodi.randomjson.entity.StringType
-import com.github.mangatmodi.randomjson.service.RandomJsonCreator
+import com.github.mangatmodi.randomjson.RandomJsonCreator
 import com.github.mangatmodi.randomjson.service.RandomTypeSelector
 
 internal class SimpleJsonCreator(

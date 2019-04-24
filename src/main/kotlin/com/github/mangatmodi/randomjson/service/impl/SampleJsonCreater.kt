@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.github.mangatmodi.randomjson.config.RandomJsonConfig
-import com.github.mangatmodi.randomjson.service.RandomJsonCreator
+import com.github.mangatmodi.randomjson.RandomJsonCreator
 import org.slf4j.LoggerFactory
 
 internal class SampleJsonCreator(
