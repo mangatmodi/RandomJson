@@ -18,10 +18,10 @@ class Runner {
             val jsonCreater = RandomJsonCreator.fromSampleString(
                 """{"key1":{"key2":3}}""",
                 RandomJsonConfig(
-                    RandomDouble.naive(),
-                    RandomInt.naive(),
+                    RandomDouble.default(),
+                    RandomInt.default(),
                     RandomString.charArray("eusbwopw".toCharArray(), 5),
-                    RandomBoolean.naive(),
+                    RandomBoolean.default(),
                     RandomString.charArray("abcdefg".toCharArray(), 5)
                 )
             )

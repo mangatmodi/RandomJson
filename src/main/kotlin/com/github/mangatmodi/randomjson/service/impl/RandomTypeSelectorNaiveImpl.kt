@@ -8,7 +8,7 @@ import com.github.mangatmodi.randomjson.entity.StringType
 import com.github.mangatmodi.randomjson.service.RandomTypeSelector
 import java.util.concurrent.ThreadLocalRandom
 
-class RandomTypeSelectorNaiveImpl : RandomTypeSelector {
+internal class RandomTypeSelectorNaiveImpl : RandomTypeSelector {
     override fun select(): JsonDataType {
         val rand = ThreadLocalRandom
             .current()
