@@ -7,11 +7,11 @@ buildscript {
         jcenter()
         mavenCentral()
     }
-
 }
 plugins {
     id 'java'
     id 'maven'
+    id 'signing'
     id "org.jetbrains.kotlin.jvm" version "1.3.11"
 }
 
@@ -40,4 +40,70 @@ dependencies {
     testCompile "org.hamcrest:hamcrest-junit:2.0.0.0"
     testCompile 'io.kotlintest:kotlintest:2.0.7'
 
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+signing {
+    sign configurations.archives
+}
+
+group = "com.github.mangatmodi"
+archivesBaseName = "randomjson"
+version = "1.0.0"
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/      ") {
+                authentication(userName: project.findProperty('ossrhUsername'), password: project.findProperty('ossrhPassword'))
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: project.findProperty('ossrhUsername'), password: project.findProperty('ossrhPassword'))
+            }
+
+            pom.project {
+                name 'Random Json Creator'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'Provides a library to create a random json string'
+                url 'https://github.com/mangatmodi/RandomJson'
+
+                scm {
+                    connection 'scm:git:https://github.com/mangatmodi/RandomJson.git'
+                    developerConnection 'scm:git:https://github.com/mangatmodi/RandomJson.git'
+                    url 'https://github.com/mangatmodi/RandomJson.git'
+                }
+
+                licenses {
+                    license {
+                        name 'MIT License'
+                        url 'http://www.opensource.org/licenses/mit-license.php'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'mangatmodi'
+                        name 'Mangat Rai Modi'
+                        email 'mangatmodi@gmail.com'
+                    }
+                }
+            }
+        }
+    }
 }
