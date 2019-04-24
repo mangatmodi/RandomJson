@@ -73,19 +73,21 @@ group = "com.github.mangatmodi"
 archivesBaseName = "randomjson"
 version = "2.0.0"
 
+def username  = project.findProperty('ossrhUsername')?:System.getenv('ossrhUsername')
+def password  = project.findProperty('ossrhPassword')?:System.getenv('ossrhPassword')
+def keyId = project.findProperty('signing.keyId')?:System.getenv('signing.keyId')
+def signPassword = project.findProperty('signing.password')?:System.getenv('signing.password')
+def signFile = project.findProperty('signing.secretKeyRingFile')?:System.getenv('signing.secretKeyRingFile')
+
+allprojects {
+    ext."signing.keyId" = keyId
+    ext."signing.secretKeyRingFile" = signFile
+    ext."signing.password" = signPassword
+}
+
 uploadArchives {
     repositories {
         mavenDeployer {
-
-            def username  = project.findProperty('ossrhUsername')?:System.getenv('ossrhUsername')
-            def password  = project.findProperty('ossrhPassword')?:System.getenv('ossrhPassword')
-            def keyId = project.findProperty('signing.keyId')?:System.getenv('signing.keyId')
-            def signPassword = project.findProperty('signing.password')?:System.getenv('signing.password')
-            def signFile = project.findProperty('signing.secretKeyRingFile')?:System.getenv('signing.secretKeyRingFile')
-
-            project.setProperty("signing.keyId",keyId)
-            project.setProperty("signing.password",signPassword)
-            project.setProperty("signing.secretKeyRingFile",signFile)
 
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
