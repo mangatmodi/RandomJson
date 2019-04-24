@@ -2,7 +2,7 @@ package com.github.mangatmodi.randomjson
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.mangatmodi.randomjson.service.RandomJsonCreator
-import com.github.mangatmodi.randomjson.service.impl.RandomTypeSelectorNaiveImpl
+import com.github.mangatmodi.randomjson.service.RandomTypeSelector
 import io.kotlintest.matchers.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
@@ -14,7 +14,7 @@ class SimpleJsonCreatorTest : ShouldSpec() {
                     val jsonString = RandomJsonCreator.fromNumberOfKeys(
                         10,
                         this.config(),
-                        RandomTypeSelectorNaiveImpl()).create()
+                        RandomTypeSelector.default()).create()
                     println(jsonString)
                     val json = ObjectMapper().readTree(jsonString)
                     json.size() shouldBe 10
