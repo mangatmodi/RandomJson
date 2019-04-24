@@ -76,14 +76,18 @@ version = "2.0.0"
 uploadArchives {
     repositories {
         mavenDeployer {
+
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/      ") {
-                authentication(userName: project.findProperty('ossrhUsername'), password: project.findProperty('ossrhPassword'))
+            def username  = project.findProperty('ossrhUsername')?:System.getenv('ossrhUsername')
+            def password  = project.findProperty('ossrhPassword')?:System.getenv('ossrhPassword')
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: username, password: password)
             }
 
             snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: project.findProperty('ossrhUsername'), password: project.findProperty('ossrhPassword'))
+                authentication(userName: username, password: password)
             }
 
             pom.project {
