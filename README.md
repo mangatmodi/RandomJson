@@ -2,12 +2,12 @@ RandomJson [![CodeFactor](https://www.codefactor.io/repository/github/mangatmodi
 
 Provides library to create a random json. Provides two implementation of json creation
 
-**[SampleJsonCreator](###SampleJsonCreator)**: Creates JSON string from a sample string.
+**[SampleJsonCreator](#SampleJsonCreator)**: Creates JSON string from a sample string.
 
-**[SimpleJsonCreator](###SimpleJsonCreator)**: Creates JSON string by taking number of required keys.
+**[SimpleJsonCreator](#SimpleJsonCreator)**: Creates JSON string by taking number of required keys.
 
 Some useful features
-1. The random value generations could be customised by giving your own [implementation](####Overloaded-random-generataor).
+1. The random value generations could be customised by giving your own [implementation](#Overloaded-random-generator).
 2. The default given implementation is _thread-safe_. That means random strings can be [created](#Parallel-creation-of-random-strings) in different threads  
 ### Examples
 #### SampleJsonCreator
