@@ -77,12 +77,19 @@ uploadArchives {
     repositories {
         mavenDeployer {
 
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
             def username  = project.findProperty('ossrhUsername')?:System.getenv('ossrhUsername')
             def password  = project.findProperty('ossrhPassword')?:System.getenv('ossrhPassword')
+            def keyId = project.findProperty('signing.keyId')?:System.getenv('signing.keyId')
+            def signPassword = project.findProperty('signing.password')?:System.getenv('signing.password')
+            def signFile = project.findProperty('signing.secretKeyRingFile')?:System.getenv('signing.secretKeyRingFile')
 
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/  ") {
+            project.setProperty("signing.keyId",keyId)
+            project.setProperty("signing.password",signPassword)
+            project.setProperty("signing.secretKeyRingFile",signFile)
+
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
                 authentication(userName: username, password: password)
             }
 
