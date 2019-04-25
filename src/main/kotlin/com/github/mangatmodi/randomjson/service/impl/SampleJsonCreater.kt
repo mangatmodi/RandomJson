@@ -6,11 +6,18 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
+import com.fasterxml.jackson.databind.node.ArrayNode
+import com.fasterxml.jackson.databind.node.BooleanNode
+import com.fasterxml.jackson.databind.node.DoubleNode
+import com.fasterxml.jackson.databind.node.IntNode
+import com.fasterxml.jackson.databind.node.JsonNodeFactory
+import com.fasterxml.jackson.databind.node.NullNode
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
-import com.github.mangatmodi.randomjson.config.RandomJsonConfig
 import com.github.mangatmodi.randomjson.RandomJsonCreator
+import com.github.mangatmodi.randomjson.config.RandomJsonConfig
 import org.slf4j.LoggerFactory
 
 internal class SampleJsonCreator(
@@ -37,29 +44,50 @@ internal class SampleJsonCreator(
     }
 
     override fun create(): String {
-        val json = objectMapper.createObjectNode()
-        tree.fields().forEach {
-            json.put(it.value)
+        val node = when {
+            tree.isArray -> {
+                val json = objectMapper.createArrayNode()
+                tree.elements().forEach {
+                    json.add(next(it))
+                }
+                json
+            }
+            tree.isObject -> {
+                val json = objectMapper.createObjectNode()
+                tree.fields().forEach {
+                    json.set(config.randomKey.next(), next(it.value))
+                }
+                json
+            }
+            else -> {
+                NullNode.instance
+            }
         }
-        return objectMapper.writeValueAsString(json)
+        return objectMapper.writeValueAsString(node)
     }
 
-    private fun ObjectNode.put(value: JsonNode) {
-        val key = config.randomKey.next()
-        when {
-            value.isNull -> {
-            }
-            value.isArray -> value.forEach { put(it) }
-            value.isObject -> {
-                val json = this.putObject(key)
-                value.fields().forEach {
-                    json.put(it.value)
+    private fun next(value: JsonNode): JsonNode {
+        return when {
+            value.isNull -> NullNode.instance
+
+            value.isArray -> {
+                val arr = ArrayNode(JsonNodeFactory.instance, value.size())
+                value.forEach {
+                    arr.add(next(it))
                 }
+                arr
             }
-            value.isInt || value.isLong || value.isBigInteger -> put(key, config.randomInt.next())
-            value.isDouble || value.isBigDecimal -> put(key, config.randomDouble.next())
-            value.isTextual -> put(key, config.randomString.next())
-            value.isBoolean -> put(key, config.randomBoolean.next())
+            value.isObject -> {
+                val obj = ObjectNode(JsonNodeFactory.instance)
+                value.fields().forEach {
+                    obj.set(config.randomKey.next(), next(it.value))
+                }
+                obj
+            }
+            value.isInt || value.isLong || value.isBigInteger -> IntNode.valueOf(config.randomInt.next())
+            value.isDouble || value.isBigDecimal -> DoubleNode.valueOf(config.randomDouble.next())
+            value.isTextual -> TextNode.valueOf(config.randomString.next())
+            value.isBoolean -> BooleanNode.valueOf(config.randomBoolean.next())
             else -> throw UnsupportedOperationException("Datatype of $value not supported")
         }
     }
