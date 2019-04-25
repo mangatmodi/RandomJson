@@ -15,12 +15,15 @@ interface RandomTypeSelector {
     fun select(): JsonDataType
 
     companion object {
+        @Deprecated("Not compatible with Java. It will be removed", ReplaceWith("uniform()"))
+        fun default(): RandomTypeSelector = RandomTypeSelectorNaiveImpl()
+
         @JvmStatic
             /**
              * Select a json value of type Integer, Double, String, Boolean.
              * Select any of them with equal probability
              * */
-        fun default(): RandomTypeSelector = RandomTypeSelectorNaiveImpl()
+        fun uniform(): RandomTypeSelector = RandomTypeSelectorNaiveImpl()
     }
 
     private class RandomTypeSelectorNaiveImpl : RandomTypeSelector {
