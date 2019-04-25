@@ -11,17 +11,19 @@ Some important considerations:
 2. The default given implementation is _thread-safe_. That means random strings can be [created](#Parallel-creation-of-random-strings) in different threads
 3. The library create one string for each call to `create()`. It does not provides any concurrency or streaming. It totally depends on the developer on how one 
 wants to use it.    
-  
+
+#### Java Interoperational
+The library can be used in Java 10+. See [example](#Java-example).   
 ### Usage
 #### Configuration
 First we need to create configuration for the creator. This config specify, the random value generators for each of the 
 primitive json type. The library includes some basic generator for each type.
 ```
 val config =  RandomJsonConfig(
-    RandomDouble.default(),
-    RandomInt.default(),
+    RandomDouble.threadLocalRandom(),
+    RandomInt.threadLocalRandom(),
     RandomString.charArray("eusbwopw".toCharArray(), 5),
-    RandomBoolean.default(),
+    RandomBoolean.uniform(),
     RandomString.charArray("abcdefg".toCharArray(), 5)
     )
 
@@ -42,7 +44,7 @@ arrays or nested json.
 
 ```
 val jsonCreater = RandomJsonCreator
-    .fromNumberOfKeys(10,config, RandomTypeSelector.default())
+    .fromNumberOfKeys(10,config, RandomTypeSelector.uniform())
     println(jsonCreater.create())            
     
 ```
@@ -56,15 +58,15 @@ class DummyDoubleValue:RandomDouble{
 }
 val config =  RandomJsonConfig(
     DummyDoubleValue(),
-    RandomInt.default(),
+    RandomInt.threadLocalRandom(),
     RandomString.charArray("eusbwopw".toCharArray(), 5),
-    RandomBoolean.default(),
+    RandomBoolean.uniform(),
     RandomString.charArray("abcdefg".toCharArray(), 5)
     )
 
 
 val jsonCreater = RandomJsonCreator
-    .fromNumberOfKeys(10,config, RandomTypeSelector.default())
+    .fromNumberOfKeys(10,config, RandomTypeSelector.uniform())
     println(jsonCreater.create())            
 
 ```
@@ -74,7 +76,7 @@ In the example below, we used kotlin's [coroutines](https://kotlinlang.org/docs/
  based `async-await` util to create 10 json strings in parallel.
 ```
 val jsonCreater = RandomJsonCreator
-    .fromNumberOfKeys(10,config, RandomTypeSelector.default())
+    .fromNumberOfKeys(10,config, RandomTypeSelector.uniform())
             
 val tasks =  (1..10).map {
     async {
@@ -85,6 +87,24 @@ val tasks =  (1..10).map {
 tasks.forEach{ it.await()}
 
 ```
+
+#### Java example
+```
+        RandomJsonConfig config = new RandomJsonConfig(
+                RandomDouble.threadLocalRandom(),
+                RandomInt.threadLocalRandom(),
+                RandomString.charArray("eusbwopw".toCharArray(), 5),
+                RandomBoolean.uniform(),
+                RandomString.charArray("abcdefg".toCharArray(), 5)
+        );
+
+        RandomJsonCreator creator = RandomJsonCreator.fromSampleString(
+                "{\"q\":1}",
+                config
+        );
+
+       System.out.println(creator.create())
+```
 ### Install
 The library could be installed from maven central
 
@@ -93,14 +113,14 @@ The library could be installed from maven central
 <dependency>
     <groupId>com.github.mangatmodi</groupId>
     <artifactId>randomjson</artifactId>
-    <version>2.0.0</version>
+    <version>2.1.0</version>
 </dependency>
 
 ```
 
 **Gradle**
 ```
-compile group: 'com.github.mangatmodi', name: 'randomjson', version: '2.0.0'
+compile group: 'com.github.mangatmodi', name: 'randomjson', version: '2.1.0'
 ```
 
 

@@ -13,7 +13,7 @@ class SimpleJsonCreatorTest : ShouldSpec() {
                     val jsonString = RandomJsonCreator.fromNumberOfKeys(
                         10,
                         this.config(),
-                        RandomTypeSelector.default()).create()
+                        RandomTypeSelector.uniform()).create()
                     println(jsonString)
                     val json = ObjectMapper().readTree(jsonString)
                     json.size() shouldBe 10

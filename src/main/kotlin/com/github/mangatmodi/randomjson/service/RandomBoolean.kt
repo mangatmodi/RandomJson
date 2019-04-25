@@ -10,7 +10,6 @@ interface RandomBoolean : RandomValue<Boolean> {
 
     companion object {
         @Deprecated("Not compatible with Java. It will be removed", ReplaceWith("uniform()"))
-        @JvmStatic
         fun default(): RandomBoolean = RandomBooleanUniformImpl()
 
         @JvmStatic

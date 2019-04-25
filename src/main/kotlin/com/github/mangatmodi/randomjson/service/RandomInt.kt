@@ -9,14 +9,12 @@ interface RandomInt : RandomValue<Int> {
     override fun next(): Int
 
     companion object {
+        @Deprecated("Not compatible with Java. It will be removed", ReplaceWith("threadLocalRandom()"))
+        fun default(): RandomInt = RandomIntThreadLocalImpl()
+
         /**
          * Uses [ThreadLocalRandom] to generate double value between 1 and [Int.MAX_VALUE]
          * */
-
-        @Deprecated("Not compatible with Java. It will be removed", ReplaceWith("threadLocalRandom()"))
-        @JvmStatic
-        fun default(): RandomInt = RandomIntThreadLocalImpl()
-
         @JvmStatic
         fun threadLocalRandom(): RandomInt = RandomIntThreadLocalImpl()
 

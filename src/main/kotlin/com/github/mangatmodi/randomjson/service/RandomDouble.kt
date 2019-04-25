@@ -11,13 +11,12 @@ interface RandomDouble : RandomValue<Double> {
     override fun next(): Double
 
     companion object {
+        @Deprecated("Not compatible with Java. It will be removed", ReplaceWith("threadLocalRandom()"))
+        fun default(): RandomDouble = RandomDoubleThreadLocalImpl()
+
         /**
          * Uses [ThreadLocalRandom] to generate double value between 1 and 1_000_000
          * */
-        @Deprecated("Not compatible with Java. It will be removed", ReplaceWith("threadLocalRandom()"))
-        @JvmStatic
-        fun default(): RandomDouble = RandomDoubleThreadLocalImpl()
-
         @JvmStatic
         fun threadLocalRandom(): RandomDouble = RandomDoubleThreadLocalImpl()
     }
