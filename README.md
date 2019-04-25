@@ -37,9 +37,6 @@ val jsonCreater = RandomJsonCreator
     println(jsonCreater.create())            
     
 ```
-**Sample Json String**|**Created String**
-:-----:|:-----:
-{"""} 
 #### SimpleJsonCreator 
 Creates JSON string similar 2ith 10 keys, the structure of the json is decided by `RandomTypeSelector`,
 which specify which which type of json field will be added next. SimpleJsonCreator does not support 
@@ -51,7 +48,7 @@ val jsonCreater = RandomJsonCreator
     println(jsonCreater.create())            
     
 ```
-#### Overloaded random generator
+#### Customize random value generators
 
 In the example below `DummyDoubleValue` implements `RandomDouble` to give `2.0`
 as the double value. So all the JSON strings created by `jsonCreator` below will contain `2.0` as double value
