@@ -6,36 +6,44 @@ Provides library to create a random json. Provides two implementation of json cr
 
 **[SimpleJsonCreator](#SimpleJsonCreator)**: Creates JSON string by taking number of required keys.
 
-Some useful features
+Some important considerations:
 1. The random value generations could be customised by giving your own [implementation](#Overloaded-random-generator).
-2. The default given implementation is _thread-safe_. That means random strings can be [created](#Parallel-creation-of-random-strings) in different threads  
-### Examples
-#### SampleJsonCreator
+2. The default given implementation is _thread-safe_. That means random strings can be [created](#Parallel-creation-of-random-strings) in different threads
+3. The library create one string for each call to `create()`. It does not provides any concurrency or streaming. It totally depends on the developer on how one 
+wants to use it.    
+  
+### Usage
+#### Configuration
+First we need to create configuration for the creator. This config specify, the random value generators for each of the 
+primitive json type. The library includes some basic generator for each type.
 ```
-            val config =  RandomJsonConfig(
-                                             RandomDouble.default(),
-                                             RandomInt.default(),
-                                             RandomString.charArray("eusbwopw".toCharArray(), 5),
-                                             RandomBoolean.default(),
-                                             RandomString.charArray("abcdefg".toCharArray(), 5)
-                                         )
-            val jsonCreater = RandomJsonCreator
-            .fromSampleString("""{"key1":{"key2":3}}""",config)
-            println(jsonCreater.create())            
+val config =  RandomJsonConfig(
+    RandomDouble.default(),
+    RandomInt.default(),
+    RandomString.charArray("eusbwopw".toCharArray(), 5),
+    RandomBoolean.default(),
+    RandomString.charArray("abcdefg".toCharArray(), 5)
+    )
+
+```
+
+#### SampleJsonCreator
+Creates JSON string similar to `{"key1":{"key2":3}}` in structure but keys and values have random values.
+```
+val jsonCreater = RandomJsonCreator
+    .fromSampleString("""{"key1":{"key2":3}}""",config)
+    println(jsonCreater.create())            
     
 ```
 #### SimpleJsonCreator 
+Creates JSON string similar 2ith 10 keys, the structure of the json is decided by `RandomTypeSelector`,
+which specify which which type of json field will be added next. SimpleJsonCreator does not support 
+arrays or nested json. 
+
 ```
-            val config =  RandomJsonConfig(
-                                             RandomDouble.default(),
-                                             RandomInt.default(),
-                                             RandomString.charArray("eusbwopw".toCharArray(), 5),
-                                             RandomBoolean.default(),
-                                             RandomString.charArray("abcdefg".toCharArray(), 5)
-                                         )
-            val jsonCreater = RandomJsonCreator
-            .fromNumberOfKeys(10,config, RandomTypeSelector.default())
-            println(jsonCreater.create())            
+val jsonCreater = RandomJsonCreator
+    .fromNumberOfKeys(10,config, RandomTypeSelector.default())
+    println(jsonCreater.create())            
     
 ```
 #### Overloaded random generator
@@ -43,21 +51,21 @@ Some useful features
 In the example below `DummyDoubleValue` implements `RandomDouble` to give `2.0`
 as the double value. So all the JSON strings created by `jsonCreator` below will contain `2.0` as double value
 ```
-           class DummyDoubleValue:RandomDouble{
-             override fun next() =  2.0
-           }
+class DummyDoubleValue:RandomDouble{
+    override fun next() =  2.0
+}
+val config =  RandomJsonConfig(
+    DummyDoubleValue(),
+    RandomInt.default(),
+    RandomString.charArray("eusbwopw".toCharArray(), 5),
+    RandomBoolean.default(),
+    RandomString.charArray("abcdefg".toCharArray(), 5)
+    )
 
-            val config =  RandomJsonConfig(
-                                             DummyDoubleValue(),
-                                             RandomInt.default(),
-                                             RandomString.charArray("eusbwopw".toCharArray(), 5),
-                                             RandomBoolean.default(),
-                                             RandomString.charArray("abcdefg".toCharArray(), 5)
-                                         )
-            val jsonCreater = RandomJsonCreator
-            .fromNumberOfKeys(10,config, RandomTypeSelector.default())
-            println(jsonCreater.create())            
 
+val jsonCreater = RandomJsonCreator
+    .fromNumberOfKeys(10,config, RandomTypeSelector.default())
+    println(jsonCreater.create())            
 
 ```
 
@@ -65,21 +73,35 @@ as the double value. So all the JSON strings created by `jsonCreator` below will
 In the example below, we used kotlin's [coroutines](https://kotlinlang.org/docs/reference/coroutines/coroutines-guide.html)
  based `async-await` util to create 10 json strings in parallel.
 ```
-            val config =  RandomJsonConfig(
-                                             RandomDouble.default(),
-                                             RandomInt.default(),
-                                             RandomString.charArray("eusbwopw".toCharArray(), 5),
-                                             RandomBoolean.default(),
-                                             RandomString.charArray("abcdefg".toCharArray(), 5)
-                                         )
-            val jsonCreater = RandomJsonCreator
-            .fromNumberOfKeys(10,config, RandomTypeSelector.default())
+val jsonCreater = RandomJsonCreator
+    .fromNumberOfKeys(10,config, RandomTypeSelector.default())
             
-            val tasks =  (1..10).map {
-                 GlobalScope.async {
-                    println(jsonCreater.create())
-                }
-            }
-            tasks.forEach{ it.await()}
+val tasks =  (1..10).map {
+    async {
+          println(jsonCreater.create())
+        }
+    }
+    
+tasks.forEach{ it.await()}
 
 ```
+### Install
+The library could be installed from maven central
+
+**Maven**
+```
+<dependency>
+    <groupId>com.github.mangatmodi</groupId>
+    <artifactId>randomjson</artifactId>
+    <version>2.0.0</version>
+</dependency>
+
+```
+
+**Gradle**
+```
+compile group: 'com.github.mangatmodi', name: 'randomjson', version: '2.0.0'
+```
+
+
+
