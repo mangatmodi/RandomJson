@@ -37,6 +37,7 @@ val jsonCreater = RandomJsonCreator
     println(jsonCreater.create())            
     
 ```
+See more [examples](https://github.com/mangatmodi/RandomJson/blob/master/examples/).
 #### SimpleJsonCreator 
 Creates JSON string similar 2ith 10 keys, the structure of the json is decided by `RandomTypeSelector`,
 which specify which which type of json field will be added next. SimpleJsonCreator does not support 
