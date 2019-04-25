@@ -14,8 +14,12 @@ interface RandomDouble : RandomValue<Double> {
         /**
          * Uses [ThreadLocalRandom] to generate double value between 1 and 1_000_000
          * */
+        @Deprecated("Not compatible with Java. It will be removed", ReplaceWith("threadLocalRandom()"))
         @JvmStatic
         fun default(): RandomDouble = RandomDoubleThreadLocalImpl()
+
+        @JvmStatic
+        fun threadLocalRandom(): RandomDouble = RandomDoubleThreadLocalImpl()
     }
 
     private class RandomDoubleThreadLocalImpl : RandomDouble {
