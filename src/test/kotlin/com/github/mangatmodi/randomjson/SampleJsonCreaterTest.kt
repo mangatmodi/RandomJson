@@ -1,6 +1,7 @@
 package com.github.mangatmodi.randomjson
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.github.mangatmodi.randomjson.RandomJsonCreator.Companion.KeepKeys
 import io.kotlintest.matchers.shouldBe
 import io.kotlintest.specs.ShouldSpec
 
@@ -25,7 +26,7 @@ class SampleJsonCreatorTest : ShouldSpec() {
 		]
 }
  """.trimIndent(),
-                        true,
+                        KeepKeys.YES,
                         this.config()
                     ).create()
                     println(jsonString)

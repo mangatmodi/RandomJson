@@ -17,12 +17,13 @@ import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.github.mangatmodi.randomjson.RandomJsonCreator
+import com.github.mangatmodi.randomjson.RandomJsonCreator.Companion.KeepKeys.YES
 import com.github.mangatmodi.randomjson.config.RandomJsonConfig
 import org.slf4j.LoggerFactory
 
 internal class SampleJsonCreator(
     private val sampleJson: String,
-    private val keepKeys: Boolean,
+    private val keepKeys: RandomJsonCreator.Companion.KeepKeys,
     private val config: RandomJsonConfig
 ) : RandomJsonCreator {
     val logger = LoggerFactory.getLogger(this::class.java)
@@ -57,7 +58,7 @@ internal class SampleJsonCreator(
             tree.isObject -> {
                 val json = objectMapper.createObjectNode()
                 tree.fields().forEach {
-                    val key = if (keepKeys) it.key else config.randomKey.next()
+                    val key = if (keepKeys is YES) it.key else config.randomKey.next()
                     json.set(key, next(it.value))
                 }
                 json
@@ -83,7 +84,7 @@ internal class SampleJsonCreator(
             value.isObject -> {
                 val obj = ObjectNode(JsonNodeFactory.instance)
                 value.fields().forEach {
-                    val key = if (keepKeys) it.key else config.randomKey.next()
+                    val key = if (keepKeys is YES) it.key else config.randomKey.next()
                     obj.set(key, next(it.value))
                 }
                 obj

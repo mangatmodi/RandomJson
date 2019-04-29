@@ -1,5 +1,6 @@
 package com.github.mangatmodi.randomjson
 
+import com.github.mangatmodi.randomjson.RandomJsonCreator.Companion.KeepKeys
 import com.github.mangatmodi.randomjson.config.RandomJsonConfig
 import com.github.mangatmodi.randomjson.service.RandomBoolean
 import com.github.mangatmodi.randomjson.service.RandomDouble
@@ -20,6 +21,6 @@ fun main(args: Array<String>) {
     """.trimIndent()
 
     val jsonCreater = RandomJsonCreator
-        .fromSampleString(input, true, config)
+        .fromSampleString(input, KeepKeys.YES, config)
     println(jsonCreater.create())
 }
