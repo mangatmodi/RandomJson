@@ -25,6 +25,7 @@ class SampleJsonCreatorTest : ShouldSpec() {
 		]
 }
  """.trimIndent(),
+                        true,
                         this.config()
                     ).create()
                     println(jsonString)

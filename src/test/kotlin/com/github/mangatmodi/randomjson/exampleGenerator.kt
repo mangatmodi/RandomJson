@@ -20,6 +20,6 @@ fun main(args: Array<String>) {
     """.trimIndent()
 
     val jsonCreater = RandomJsonCreator
-        .fromSampleString(input, config)
+        .fromSampleString(input, true, config)
     println(jsonCreater.create())
 }

@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory
 
 internal class SampleJsonCreator(
     private val sampleJson: String,
+    private val keepKeys: Boolean,
     private val config: RandomJsonConfig
 ) : RandomJsonCreator {
     val logger = LoggerFactory.getLogger(this::class.java)
@@ -44,6 +45,7 @@ internal class SampleJsonCreator(
     }
 
     override fun create(): String {
+
         val node = when {
             tree.isArray -> {
                 val json = objectMapper.createArrayNode()
@@ -55,7 +57,8 @@ internal class SampleJsonCreator(
             tree.isObject -> {
                 val json = objectMapper.createObjectNode()
                 tree.fields().forEach {
-                    json.set(config.randomKey.next(), next(it.value))
+                    val key = if (keepKeys) it.key else config.randomKey.next()
+                    json.set(key, next(it.value))
                 }
                 json
             }
@@ -80,7 +83,8 @@ internal class SampleJsonCreator(
             value.isObject -> {
                 val obj = ObjectNode(JsonNodeFactory.instance)
                 value.fields().forEach {
-                    obj.set(config.randomKey.next(), next(it.value))
+                    val key = if (keepKeys) it.key else config.randomKey.next()
+                    obj.set(key, next(it.value))
                 }
                 obj
             }
