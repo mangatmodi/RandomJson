@@ -135,14 +135,14 @@ The library could be installed from maven central
 <dependency>
     <groupId>com.github.mangatmodi</groupId>
     <artifactId>randomjson</artifactId>
-    <version>2.1.1</version>
+    <version>2.1.2</version>
 </dependency>
 
 ```
 
 **Gradle**
 ```gradle
-compile group: 'com.github.mangatmodi', name: 'randomjson', version: '2.1.1'
+compile group: 'com.github.mangatmodi', name: 'randomjson', version: '2.1.2'
 ```
 
 
