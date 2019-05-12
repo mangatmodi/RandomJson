@@ -45,30 +45,11 @@ internal class SampleJsonCreator(
         throw e
     }
 
-    override fun create(): String {
-
-        val node = when {
-            tree.isArray -> {
-                val json = objectMapper.createArrayNode()
-                tree.elements().forEach {
-                    json.add(next(it))
-                }
-                json
-            }
-            tree.isObject -> {
-                val json = objectMapper.createObjectNode()
-                tree.fields().forEach {
-                    val key = if (keepKeys is YES) it.key else config.randomKey.next()
-                    json.set(key, next(it.value))
-                }
-                json
-            }
-            else -> {
-                NullNode.instance
-            }
-        }
-        return objectMapper.writeValueAsString(node)
-    }
+    override fun create(): String =
+        if (tree.isArray || tree.isObject)
+            objectMapper.writeValueAsString(next(tree))
+        else
+            throw IllegalArgumentException("Invalid sample json:$sampleJson")
 
     private fun next(value: JsonNode): JsonNode {
         return when {

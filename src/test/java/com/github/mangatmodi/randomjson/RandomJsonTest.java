@@ -26,7 +26,7 @@ public class RandomJsonTest {
         );
 
         RandomJsonCreator creator = RandomJsonCreator
-                .fromSampleString("{\"q\":1}", KeepKeys.no(), config);
+                .fromSampleString("{\"q\":1}", config, KeepKeys.no());
 
         try {
             JsonNode json = new ObjectMapper().readTree(creator.create());

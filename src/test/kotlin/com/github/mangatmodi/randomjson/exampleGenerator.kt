@@ -47,6 +47,6 @@ fun main(args: Array<String>) {
 """.trimIndent()
 
     val jsonCreater = RandomJsonCreator
-        .fromSampleString(input, KeepKeys.YES, config)
+        .fromSampleString(input, config, KeepKeys.YES)
     println(jsonCreater.create())
 }

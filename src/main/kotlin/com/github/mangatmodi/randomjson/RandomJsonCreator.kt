@@ -31,8 +31,8 @@ interface RandomJsonCreator {
              */
         fun fromSampleString(
             sampleJson: String,
-            keepKeys: KeepKeys,
-            config: RandomJsonConfig
+            config: RandomJsonConfig,
+            keepKeys: KeepKeys = Companion.KeepKeys.YES
         ): RandomJsonCreator = SampleJsonCreator(sampleJson, keepKeys, config)
 
         @JvmStatic

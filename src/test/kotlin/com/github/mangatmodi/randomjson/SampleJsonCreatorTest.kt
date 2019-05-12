@@ -26,8 +26,8 @@ class SampleJsonCreatorTest : ShouldSpec() {
 		]
 }
  """.trimIndent(),
-                        KeepKeys.YES,
-                        this.config()
+                        this.config(),
+                        KeepKeys.YES
                     ).create()
                     println(jsonString)
                     val json = ObjectMapper().readTree(jsonString)
