@@ -16,9 +16,35 @@ fun main(args: Array<String>) {
         RandomString.charArray("abcdefg".toCharArray(), 3)
     )
     val input = """
-[1,2,5.0,"hello"]
-
-    """.trimIndent()
+{
+  "id": 23,
+  "CGPA": 4.78,
+  "name": "Mangat",
+  "date": "2019-04-25 10:01:01 [UTC]",
+  "courses": [
+    {
+      "id": 1,
+      "name": "Algorithms",
+      "score": 3.5
+    },
+    {
+      "id": 2,
+      "type": "Functional Programming",
+      "score": 4.1
+    },
+    {
+      "id": 3,
+      "type": "Linear Alegbra",
+      "score": 5
+    },
+    {
+      "id": 4,
+      "type": "Data Streaming",
+      "score": 5
+    }
+  ]
+}
+""".trimIndent()
 
     val jsonCreater = RandomJsonCreator
         .fromSampleString(input, KeepKeys.YES, config)
