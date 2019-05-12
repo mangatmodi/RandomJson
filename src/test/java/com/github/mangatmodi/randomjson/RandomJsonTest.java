@@ -7,6 +7,8 @@ import com.github.mangatmodi.randomjson.service.RandomBoolean;
 import com.github.mangatmodi.randomjson.service.RandomDouble;
 import com.github.mangatmodi.randomjson.service.RandomInt;
 import com.github.mangatmodi.randomjson.service.RandomString;
+import com.github.mangatmodi.randomjson.RandomJsonCreator.Companion.KeepKeys;
+
 import org.junit.Test;
 
 import java.io.IOException;
@@ -23,10 +25,8 @@ public class RandomJsonTest {
                 RandomString.charArray("abcdefg".toCharArray(), 5)
         );
 
-        RandomJsonCreator creator = RandomJsonCreator.fromSampleString(
-                "{\"q\":1}",
-                config
-        );
+        RandomJsonCreator creator = RandomJsonCreator
+                .fromSampleString("{\"q\":1}", config, KeepKeys.no());
 
         try {
             JsonNode json = new ObjectMapper().readTree(creator.create());

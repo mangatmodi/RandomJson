@@ -9,6 +9,19 @@ interface RandomJsonCreator {
     fun create(): String
 
     companion object {
+
+        sealed class KeepKeys {
+            object YES : KeepKeys()
+            object NO : KeepKeys()
+            companion object {
+                @JvmStatic
+                fun no(): KeepKeys = NO
+
+                @JvmStatic
+                fun yes(): KeepKeys = NO
+            }
+        }
+
         @JvmStatic
             /**
              * Creates JSON string by generating fields using generators in [config].
@@ -18,8 +31,9 @@ interface RandomJsonCreator {
              */
         fun fromSampleString(
             sampleJson: String,
-            config: RandomJsonConfig
-        ): RandomJsonCreator = SampleJsonCreator(sampleJson, config)
+            config: RandomJsonConfig,
+            keepKeys: KeepKeys = Companion.KeepKeys.YES
+        ): RandomJsonCreator = SampleJsonCreator(sampleJson, keepKeys, config)
 
         @JvmStatic
             /**

@@ -33,10 +33,30 @@ val config =  RandomJsonConfig(
 Creates JSON string similar to `{"key1":{"key2":3}}` in structure but keys and values have random values.
 ```kotlin
 val jsonCreater = RandomJsonCreator
-    .fromSampleString("""{"key1":{"key2":3}}""",config)
+    .fromSampleString("""{"key1":{"key2":3}}""", config, KeepKeys.No)
     println(jsonCreater.create())            
     
 ```
+Above prints
+```json
+{"ggdb":{"faea":1279812142}}
+```
+
+**Keep the same keys as the sample string**
+The sample string creator can create json with same keys as the original json.
+```kotlin
+    val input = """{"key1":{"key2":3}}""".trimIndent()
+
+    val jsonCreater = RandomJsonCreator
+        .fromSampleString(input, config, KeepKeys.YES)
+    println(jsonCreater.create())
+
+```    
+Above prints
+```json
+{"key1":{"key2":2083614805}}
+```
+
 See more [examples](https://github.com/mangatmodi/RandomJson/blob/master/examples/).
 #### SimpleJsonCreator 
 Creates JSON string similar 2ith 10 keys, the structure of the json is decided by `RandomTypeSelector`,
@@ -101,7 +121,8 @@ tasks.forEach{ it.await()}
 
         RandomJsonCreator creator = RandomJsonCreator.fromSampleString(
                 "{\"q\":1}",
-                config
+                config,
+                KeepKeys.no()
         );
 
        System.out.println(creator.create())
