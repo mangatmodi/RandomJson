@@ -23,8 +23,8 @@ import org.slf4j.LoggerFactory
 
 internal class SampleJsonCreator(
     private val sampleJson: String,
-    private val keepKeys: RandomJsonCreator.Companion.KeepKeys,
-    private val config: RandomJsonConfig
+    private val config: RandomJsonConfig,
+    private val keepKeys: RandomJsonCreator.Companion.KeepKeys
 ) : RandomJsonCreator {
     val logger = LoggerFactory.getLogger(this::class.java)
     private val objectMapper: ObjectMapper = ObjectMapper()

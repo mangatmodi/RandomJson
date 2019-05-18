@@ -1,6 +1,9 @@
 package com.github.mangatmodi.randomjson.service
 
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.UUID
+import java.util.concurrent.ThreadLocalRandom
 import kotlin.random.Random
 
 /**
@@ -27,11 +30,11 @@ interface RandomString : RandomValue<String> {
         fun charArray(charArray: CharArray, length: Int): RandomString = RandomStringCharArrayImpl(charArray, length)
     }
 
-    private class RandomStringUUIDImpl : RandomString {
+    class RandomStringUUIDImpl : RandomString {
         override fun next() = UUID.randomUUID().toString()
     }
 
-    private class RandomStringCharArrayImpl(
+    class RandomStringCharArrayImpl(
         private val charArray: CharArray,
         private val length: Int
     ) : RandomString {
@@ -39,5 +42,13 @@ interface RandomString : RandomValue<String> {
             val index = Random.nextInt(0, charArray.size)
             charArray[index]
         }.joinToString("")
+    }
+
+    class RandomStringDateImpl(private val format: DateTimeFormatter) : RandomString {
+        override fun next(): String =
+            ZonedDateTime
+                .now()
+                .plusDays(ThreadLocalRandom.current().nextLong(0, 10_000))
+                .format(format)
     }
 }

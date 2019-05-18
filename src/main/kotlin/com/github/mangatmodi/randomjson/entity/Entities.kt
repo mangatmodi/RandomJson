@@ -4,6 +4,7 @@ sealed class JsonDataType {
     fun next() {
     }
 }
+
 object StringType : JsonDataType()
 object DoubleType : JsonDataType()
 object IntType : JsonDataType()

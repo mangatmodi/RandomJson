@@ -33,7 +33,7 @@ interface RandomJsonCreator {
             sampleJson: String,
             config: RandomJsonConfig,
             keepKeys: KeepKeys = Companion.KeepKeys.YES
-        ): RandomJsonCreator = SampleJsonCreator(sampleJson, keepKeys, config)
+        ): RandomJsonCreator = SampleJsonCreator(sampleJson, config, keepKeys)
 
         @JvmStatic
             /**
