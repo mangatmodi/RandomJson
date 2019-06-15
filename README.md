@@ -7,7 +7,7 @@ Provides library to create a random json. Provides two implementation of json cr
 **[SimpleJsonCreator](#SimpleJsonCreator)**: Creates JSON string by taking number of required keys.
 
 Some important considerations:
-1. The random value generations could be customised by giving your own [implementation](#Overloaded-random-generator).
+1. The random value generations could be customised by giving your own [implementation](#Customize-random-value-generators).
 2. The default given implementation is _thread-safe_. That means random strings can be [created](#Parallel-creation-of-random-strings) in different threads
 3. The library create one string for each call to `create()`. It does not provides any concurrency or streaming. It totally depends on the developer on how one 
 wants to use it.    
