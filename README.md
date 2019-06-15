@@ -32,9 +32,9 @@ val config =  RandomJsonConfig(
 #### SampleJsonCreator
 Creates JSON string similar to `{"key1":{"key2":3}}` in structure but keys and values have random values.
 ```kotlin
-val jsonCreater = RandomJsonCreator
+val jsonCreator = RandomJsonCreator
     .fromSampleString("""{"key1":{"key2":3}}""", config, KeepKeys.No)
-    println(jsonCreater.create())            
+    println(jsonCreator.create())            
     
 ```
 Above prints
@@ -47,9 +47,9 @@ The sample string creator can create json with same keys as the original json.
 ```kotlin
     val input = """{"key1":{"key2":3}}""".trimIndent()
 
-    val jsonCreater = RandomJsonCreator
+    val jsonCreator = RandomJsonCreator
         .fromSampleString(input, config, KeepKeys.YES)
-    println(jsonCreater.create())
+    println(jsonCreator.create())
 
 ```    
 Above prints
@@ -64,9 +64,9 @@ which specify which which type of json field will be added next. SimpleJsonCreat
 arrays or nested json. 
 
 ```kotlin
-val jsonCreater = RandomJsonCreator
+val jsonCreator = RandomJsonCreator
     .fromNumberOfKeys(10,config, RandomTypeSelector.uniform())
-    println(jsonCreater.create())            
+    println(jsonCreator.create())            
     
 ```
 #### Customize random value generators
@@ -86,9 +86,9 @@ val config =  RandomJsonConfig(
     )
 
 
-val jsonCreater = RandomJsonCreator
+val jsonCreator = RandomJsonCreator
     .fromNumberOfKeys(10,config, RandomTypeSelector.uniform())
-    println(jsonCreater.create())            
+    println(jsonCreator.create())            
 
 ```
 
@@ -96,12 +96,12 @@ val jsonCreater = RandomJsonCreator
 In the example below, we used kotlin's [coroutines](https://kotlinlang.org/docs/reference/coroutines/coroutines-guide.html)
  based `async-await` util to create 10 json strings in parallel.
 ```kotlin
-val jsonCreater = RandomJsonCreator
+val jsonCreator = RandomJsonCreator
     .fromNumberOfKeys(10,config, RandomTypeSelector.uniform())
             
 val tasks =  (1..10).map {
     async {
-          println(jsonCreater.create())
+          println(jsonCreator.create())
         }
     }
     
